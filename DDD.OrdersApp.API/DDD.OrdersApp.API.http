@@ -1,0 +1,6 @@
+@DDD.OrdersApp.API_HostAddress = http://localhost:5023
+
+GET {{DDD.OrdersApp.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
