@@ -35,13 +35,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
-builder.Services.AddHostedService(sp =>
-    new OutboxPublisherService(
-        sp,
-        builder.Configuration["Kafka:BootstrapServers"],
-        builder.Configuration["Kafka:Topic"],
-        sp.GetRequiredService<ILogger<OutboxPublisherService>>()
-    ));
+
 
 builder.Host.UseSerilog();
 builder.Services.AddSwaggerGen();
