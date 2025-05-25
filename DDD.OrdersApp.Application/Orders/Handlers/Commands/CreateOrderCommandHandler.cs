@@ -34,7 +34,7 @@ namespace DDD.OrdersApp.Application.Orders.Handlers.Commands
             };
             await _orderRepository.AddAsync(order);
             var serialized = System.Text.Json.JsonSerializer.Serialize(order);
-            _redisCache.SetString($"order:{order.Id}", serialized);
+            _redisCache.SetString($"order:{order.Id}", serialized, TimeSpan.FromMinutes(30));
             await _kafkaProducer.ProduceAsync(_kafkaTopic, serialized);
             return new OrderDto { Id = order.Id, CustomerName = order.CustomerName, CreatedAt = order.CreatedAt };
         }

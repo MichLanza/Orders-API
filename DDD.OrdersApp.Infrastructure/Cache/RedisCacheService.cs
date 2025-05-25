@@ -1,4 +1,5 @@
 using StackExchange.Redis;
+using System;
 
 namespace DDD.OrdersApp.Infrastructure.Cache
 {
@@ -10,10 +11,12 @@ namespace DDD.OrdersApp.Infrastructure.Cache
             var redis = ConnectionMultiplexer.Connect(connectionString);
             _db = redis.GetDatabase();
         }
-        public void SetString(string key, string value)
+
+        public void SetString(string key, string value, TimeSpan? expiry = null)
         {
-            _db.StringSet(key, value);
+            _db.StringSet(key, value, expiry);
         }
+
         public string? GetString(string key)
         {
             return _db.StringGet(key);

@@ -77,6 +77,14 @@ builder.Services.AddSingleton(x => new KafkaProducerService(configuration["Kafka
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+builder.Services.AddHostedService(sp =>
+    new KafkaConsumerService(
+        builder.Configuration["Kafka:BootstrapServers"],
+        builder.Configuration["Kafka:Topic"],
+        "orders-consumer-group"
+    ));
+
+
 builder.Services.AddScoped<IHandler<CreateOrderCommand, Result<OrderDto>>>(sp =>
     new CreateOrderCommandHandler(
         sp.GetRequiredService<IOrderRepository>(),
