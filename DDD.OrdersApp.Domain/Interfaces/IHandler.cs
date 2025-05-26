@@ -1,4 +1,4 @@
-namespace DDD.OrdersApp.Application.Common
+namespace DDD.OrdersApp.Domain.Interfaces
 {
     public interface IHandler<TRequest, TResponse>
     {

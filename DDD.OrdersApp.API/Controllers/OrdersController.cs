@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using DDD.OrdersApp.Application.Orders.Handlers.Queries;
 using DDD.OrdersApp.Application.Orders.Handlers.Commands;
 using DDD.OrdersApp.Application.Orders.DTOs;
+using DDD.OrdersApp.Domain.Interfaces;
 
 namespace DDD.OrdersApp.API.Controllers
 {

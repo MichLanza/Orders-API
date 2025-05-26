@@ -1,6 +1,5 @@
 using DDD.OrdersApp.Domain.Orders.Entities;
 using DDD.OrdersApp.Domain.Users.Entities;
-using DDD.OrdersApp.Infrastructure.Orders.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DDD.OrdersApp.Infrastructure.Orders.Data

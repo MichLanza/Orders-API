@@ -1,6 +1,7 @@
 using DDD.OrdersApp.Application.Common;
 using Microsoft.AspNetCore.Mvc;
 using DDD.OrdersApp.Application.Auth.DTOs;
+using DDD.OrdersApp.Domain.Interfaces;
 
 namespace DDD.OrdersApp.API.Controllers
 {

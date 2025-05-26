@@ -1,3 +1,4 @@
+using DDD.OrdersApp.Domain.Interfaces.Repositories;
 using DDD.OrdersApp.Domain.Users.Entities;
 using DDD.OrdersApp.Infrastructure.Orders.Data;
 using Microsoft.EntityFrameworkCore;

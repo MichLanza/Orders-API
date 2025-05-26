@@ -1,8 +1,9 @@
 using DDD.OrdersApp.Infrastructure.Cache;
 using DDD.OrdersApp.Application.Common;
-using DDD.OrdersApp.Infrastructure.Orders.Repositories;
 using DDD.OrdersApp.Domain.Orders.Entities;
 using DDD.OrdersApp.Application.Orders.DTOs;
+using DDD.OrdersApp.Domain.Interfaces.Repositories;
+using DDD.OrdersApp.Domain.Interfaces;
 
 namespace DDD.OrdersApp.Application.Orders.Handlers.Queries
 {

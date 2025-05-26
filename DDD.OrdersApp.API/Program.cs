@@ -6,7 +6,11 @@ using DDD.OrdersApp.Application.Common;
 using DDD.OrdersApp.Application.Orders.DTOs;
 using DDD.OrdersApp.Application.Orders.Handlers.Commands;
 using DDD.OrdersApp.Application.Orders.Handlers.Queries;
+using DDD.OrdersApp.Domain.Interfaces;
+using DDD.OrdersApp.Domain.Interfaces.Repositories;
 using DDD.OrdersApp.Infrastructure.Cache;
+using DDD.OrdersApp.Infrastructure.Encription;
+using DDD.OrdersApp.Infrastructure.Jwt;
 using DDD.OrdersApp.Infrastructure.Kafka;
 using DDD.OrdersApp.Infrastructure.Orders.Data;
 using DDD.OrdersApp.Infrastructure.Orders.Repositories;
@@ -76,6 +80,8 @@ builder.Services.AddSingleton(x => new RedisCacheService(configuration["Redis:Co
 builder.Services.AddSingleton(x => new KafkaProducerService(configuration["Kafka:BootstrapServers"]));
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IEncryption, BcryptEncryption>();
+builder.Services.AddScoped<IJwtService, JwtGeneration>();
 
 builder.Services.AddHostedService(sp =>
     new KafkaConsumerService(
@@ -100,13 +106,15 @@ builder.Services.AddScoped<IHandler<GetOrderQuery, Result<OrderDto>>>(sp =>
     ));
 builder.Services.AddScoped<IHandler<RegisterUserDto, Result<bool>>>(sp =>
     new RegisterUserCommandHandler(
-        sp.GetRequiredService<IUserRepository>()
+        sp.GetRequiredService<IUserRepository>(),
+        sp.GetRequiredService<IEncryption>()
     ));
 
 builder.Services.AddScoped<IHandler<LoginRequestDto, Result<LoginResponse>>>(sp =>
     new LoginCommandHandler(
         sp.GetRequiredService<IUserRepository>(),
-        sp.GetRequiredService<IConfiguration>()
+        sp.GetRequiredService<IEncryption>(),
+        sp.GetRequiredService<IJwtService>()
     ));
 
 

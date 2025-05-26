@@ -1,6 +1,6 @@
 using DDD.OrdersApp.Domain.Users.Entities;
 
-namespace DDD.OrdersApp.Infrastructure.Orders.Repositories
+namespace DDD.OrdersApp.Domain.Interfaces.Repositories
 {
     public interface IUserRepository
     {
