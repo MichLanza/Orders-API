@@ -15,6 +15,7 @@ namespace DDD.OrdersApp.API.Filters
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
+
             var args = context.ActionArguments.Values.OfType<T>().FirstOrDefault();
 
             if (args is null)
@@ -27,16 +28,16 @@ namespace DDD.OrdersApp.API.Filters
 
             if (!validationsResults.IsValid)
             {
-
-                context.Result = new BadRequestObjectResult(
-                    new
+                var response = new ValidationErrorResponse
+                {
+                    Errors = validationsResults.ToDictionary()
+                    .Select(validation => new ValidationError
                     {
-                        errors = validationsResults.ToDictionary().Select(validation => new
-                        {
-                            attribute = validation.Key,
-                            messages = validation.Value
-                        })
-                    });
+                        Attribute = validation.Key,
+                        Messages = validation.Value
+                    }).ToList()
+                };
+                context.Result = new BadRequestObjectResult(response);
                 return;
             }
 
